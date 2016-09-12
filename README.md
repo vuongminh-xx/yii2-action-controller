@@ -183,3 +183,8 @@ class GuestController extends ActiveController
 Scenarios in ActiveRecord
 ------------
 
+Class `vuongminh\ac\ActiveRecord` is an extension of `yii\db\ActiveRecord` it help you solve problem below:
+
+Your AR model have many scenarios and maybe one scenario have many sub-scenario and you have many many rules it so difficult control them. My ActiveRecord may help you.
+
+I used GII to generate a model
