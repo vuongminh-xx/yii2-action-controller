@@ -48,8 +48,8 @@ class GuestController extends ActiveController
 
 After define actions name you create directory have name of controller name in `@app\controllers\` and create action files have prefix "Action" . "name action", you can override prefix property `$actionPrefix` default is Action.
 
-      guest/ActionLogin.php
-      guest/ActionForgotPassword.php
+      @app\controllers\guest\ActionLogin.php
+      @app\controllers\guest\ActionForgotPassword.php
 
 
 
@@ -63,7 +63,7 @@ namespace app\controllers\guest;
 use yii\base\Action;
 
 
-class LoginAction extends Action
+class ActionLogin extends Action
 {
     public function run(){
         return $this->controller->render("login");
@@ -109,7 +109,7 @@ namespace app\controllers\guest;
 use vuongminh\ac\ActiveAction;
 
 
-class LoginAction extends ActiveAction
+class ActionLogin extends ActiveAction
 {
     public function run(){
         $user = $this->user; // equivalent to \Yii::$app->user
@@ -125,7 +125,7 @@ class LoginAction extends ActiveAction
 
 When init ActiveAction will check class`@app\models\controllername\actioname` if exist it auto create an object and set to property `$model` of action class.
 
-Example: I have a model class `app\models\guest\Login` Login is a name of my action. In `LoginAction` it auto define and set to property `$model`
+Example: I have a model class `app\models\guest\Login` Login is a name of my action. In `ActionLogin` it auto define and set to property `$model`
 
 ```php
 <?php
@@ -138,7 +138,7 @@ use vuongminh\ac\ActiveAction;
  *
  * @property \app\models\guest\Login $model
  */
-class LoginAction extends ActiveAction
+class ActionLogin extends ActiveAction
 {
     public function run(){
         if($this->model->load($this->requestPost) && $this->model->login()){
