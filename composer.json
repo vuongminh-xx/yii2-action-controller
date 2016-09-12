@@ -1,0 +1,21 @@
+{
+    "name": "vuongminh/yii2-action-controller",
+    "description": "Action controller help you code clean",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "VUONG MINH",
+            "email": "vuongxuongminh@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "vuongminh\\ac\\": ""
+        }
+    }
+}
