@@ -20,7 +20,7 @@ php composer.phar require --prefer-dist vuongminh/yii2-action-controller
 or add
 
 ```json
-"vuongminh/yii2-action-controller": "*"
+"vuongminh/yii2-action-controller": "v1-beta"
 ```
 
 to the require section of your composer.json.
@@ -92,7 +92,7 @@ class GuestController extends ActiveController
                  'layout' => 'abc',
              ],
              'forgot-password' => [
-                 'format' => \yii\web\Response::FORMAT_JSON
+                 'reponseFormat' => \yii\web\Response::FORMAT_JSON
              ]
          ];
      }   
@@ -168,7 +168,7 @@ class GuestController extends ActiveController
                  'model' => 'app\models\Login'
              ],
               'forgot-password' => [
-                  'format' => \yii\web\Response::FORMAT_JSON,
+                  'reponseFormat' => \yii\web\Response::FORMAT_JSON,
                   'model' => [
                       'class' => 'app\models\Login',
                       'propertyName1' => 'value',
