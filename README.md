@@ -48,8 +48,8 @@ class GuestController extends ActiveController
 
 After define actions name you create directory have name of controller name in `@app\controllers\` and create action files have prefix "Action" . "name action", you can override prefix property `$actionPrefix` default is Action.
 
-      @app\controllers\guest\ActionLogin.php
-      @app\controllers\guest\ActionForgotPassword.php
+      @app/controllers/guest/ActionLogin.php
+      @app/controllers/guest/ActionForgotPassword.php
 
 
 
@@ -123,7 +123,7 @@ class ActionLogin extends ActiveAction
 }
 ```
 
-When init ActiveAction will check class`@app\models\controllername\actioname` if exist it auto create an object and set to property `$model` of action class.
+When init ActiveAction will check class exist `@app\models\controllername\actioname` if exist it auto create an object and set to property `$model` of action class.
 
 Example: I have a model class `app\models\guest\Login` Login is a name of my action. In `ActionLogin` it auto define and set to property `$model`
 
@@ -183,8 +183,68 @@ class GuestController extends ActiveController
 Scenarios in ActiveRecord
 ------------
 
-Class `vuongminh\ac\ActiveRecord` is an extension of `yii\db\ActiveRecord` it help you solve problem below:
+Abstract class `vuongminh\ac\ActiveRecord` is an extension of `yii\db\ActiveRecord` it help you solve problem below:
 
-Your AR model have many scenarios and maybe one scenario have many sub-scenario and you have many many rules it so difficult control them. My ActiveRecord may help you.
+Your AR model may have many scenarios and maybe one scenario have many sub-scenario and you have many many rules it so difficult control them. My ActiveRecord pattern may help you.
 
-I used GII to generate a model
+I used GII to generate a model AR User and I change an extends class `\yii\db\ActiveRecord` to an abstract class `\vuongminh\ac\ActiveRecord` and change method rules() to tableRules()
+
+```php
+<?php
+
+namespace app\models;
+
+/**
+ * This is the model class for table "users".
+ *
+ * @property string $iId
+ * @property string $cEmail
+ * @property string $cPassword
+ */
+class User extends \vuongminh\ac\ActiveRecord  {
+    
+        public function tableRules() {
+            return [
+                [['iId'], 'safe'],
+                [['cEmail', 'cPassword'], 'string', 'max' => 256],
+             ];
+        }
+}
+```
+
+and I have scenario forgot password model extends User and method rules of this scenario change to scenarioRules, it will merge with table rules
+
+```php
+<?php
+
+namespace app\models\guest;
+use app\models\User;
+/**
+ * This is the model class for table "users".
+ *
+ * @property string $iId
+ * @property string $cEmail
+ * @property string $cPassword
+ */
+class ForgotPassword extends User  {
+    
+        public $cRePassword, $cReCaptcha, $cVerifyCode;
+        
+        public function scenarioRules() {
+            return [
+                [['cEmail', 'cReCaptcha', 'cVerifyCode', 'cPassword', 'cRePassword'], 'required'],
+                 [['cEmail'], 'exist'],
+                ['cVerifyCode', 'checkVerifyCode'],
+                ['cVertifyCode', 'required'],
+                ['cRePassword', 'compare', 'compareAttribute' => 'cPassword']
+             ];
+        }
+        
+        public function scenarios(){
+            return [
+                'sendVerifyCode' => ['cEmail', 'cReCaptcha'],
+                'vertifyCode' => ['cVerifyCode', 'cPassword', 'cRePassword']
+            ];            
+        }
+}
+```
