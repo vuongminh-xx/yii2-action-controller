@@ -57,8 +57,7 @@ abstract class ActiveController extends Controller {
      * @return string path store all controller actions in controllers directory.
      */
     private function getPathAction() {
-        $controller = Yii::$app->controller->id;
-        return str_replace("-", "", $controller);
+        return str_replace("-", "", $this->id);
     }
 
     /**
@@ -66,7 +65,7 @@ abstract class ActiveController extends Controller {
      * @return string
      */
     private function getActionNamespace() {
-        $controllerNamespace = Yii::$app->controllerNamespace;
+        $controllerNamespace = Yii::$app->controller->module->controllerNamespace;
         return $controllerNamespace . "\\" . $this->getPathAction();
     }
 

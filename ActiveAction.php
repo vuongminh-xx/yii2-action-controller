@@ -88,11 +88,11 @@ class ActiveAction extends Action {
      * @return string
      */
     private function getModelNamespace() {
-        $controllerNamespace = Yii::$app->controllerNamespace;
-        $explode = explode("\\", $controllerNamespace);
-        unset($explode[count($explode) - 1]);
-        $baseNamespace = implode("\\", $explode);
-        return $baseNamespace . "\\" . "models" . "\\" . $this->getPathModel();
+        $moduleClass = get_class($this->controllers->module);
+		if (($pos = strrpos($class, '\\')) !== false) {
+            return substr($class, 0, $pos) . '\\models\\' . $this->getPathModel();
+        }		
+        return "models" . "\\" . $this->getPathModel();
     }
 
 }
