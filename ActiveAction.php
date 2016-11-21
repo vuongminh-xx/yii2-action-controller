@@ -89,8 +89,8 @@ class ActiveAction extends Action {
      */
     private function getModelNamespace() {
         $moduleClass = get_class($this->controllers->module);
-		if (($pos = strrpos($class, '\\')) !== false) {
-            return substr($class, 0, $pos) . '\\models\\' . $this->getPathModel();
+		if (($pos = strrpos($moduleClass, '\\')) !== false) {
+            return substr($moduleClass, 0, $pos) . '\\models\\' . $this->getPathModel();
         }		
         return "models" . "\\" . $this->getPathModel();
     }
