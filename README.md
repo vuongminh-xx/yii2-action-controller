@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/vuongminh/yii2-action-controller/badge.svg?branch=master)](https://coveralls.io/github/vuongminh/yii2-action-controller?branch=master)
+
 Action controller
 ============================
 
